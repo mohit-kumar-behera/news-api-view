@@ -1,4 +1,5 @@
 {% extends 'news/base.html' %}
+{% load static %}
 
 {% block title %}
 	<title>News - Top HeadLines</title>
@@ -9,57 +10,12 @@
 	<section id="title mb-5">
 		<h1 class="text-center brand" style="font-family:'Montserrat">DailyNews.com</h1>
 	</section>
-<p id="demo"></p>
+	<p id="demo"></p>
 	<section id="country">
 		<div class="container mt-5 mb-5 d-flex flex-wrap justify-content-start">
 			
 		</div>
 	</section>
-
-	<script>
-		var countries = {
-			ar:'Argentina',
-			au:'Australia',
-			br:'Brazil',
-			ca:'Canada',
-			cn:'China',
-			fr:'France',
-			gr:'Greece',	
-			in:'India',
-			id:'Indonesia',
-			il:'Israel',
-			it:'Italy',
-			jp:'Japan',
-			nl:'Netherland',
-			nz:'New Zealand',	
-			gb:'United Kingdom',
-			sa:'Saudi Arabia',
-			sg:'Singapore',
-			za:'South Africa',
-			kr:'South Korea',
-			se:'Sweden',
-			ae:'UAE',
-			us:'United States',
-		};
-
-		for(country_code in countries){
-			c_button = document.createElement("button");
-			c_button.type="button";
-			c_button.className = "btn btn-primary m-2 country-btn";
-			c_btn_text = document.createTextNode(countries[country_code]);
-			c_button.appendChild(c_btn_text);
-			c_button.setAttribute("countrycode",country_code)
-			country_container = document.getElementById('country');
-			country_container.getElementsByClassName("container")[0].appendChild(c_button);
-		}
-
-	</script>
-
-	<script>
-		$(".country-btn").click(function(){
-			location.replace('http://127.0.0.1:8000/news/'+$(this).attr('countrycode'));
-		})
-	</script>
 
 	{% if message %}
 		<section id="error_message">
@@ -68,36 +24,6 @@
 	{% endif %}
 
 	<section id="top-headlines mt-5">
-
-
-	<!-- {% for article in articles %}
-		<div class="container mb-3 rounded">
-			<a href="{{ article.url }}" class="full-content-url">
-				<div class="img-container">
-					<div class='p-2'>
-						<small class="news-name float-right">{% if article.source.name %}{{ article.source.name }}{% else %}Resource{% endif %}</small>
-					</div>
-					{% if article.urlToImage %}
-						<img src="{{ article.urlToImage }}" class="text-center img-fluid news-image"/>
-					{% else %}
-						<div class="no-image">
-							<h3 class="text-center text-muted">No Image Available</h3>
-						</div>
-					{% endif %}
-					<div class='d-flex justify-content-between p-2'>
-						<small class="news-author">{% if article.author %}{{ article.author }}{% else %}Anonymous{% endif %}</small>
-						<small class="news-pub-date">{% if article.publishedAt %}{{ article.publishedAt }}{% else %}{Few days ago}{% endif %}</small>
-					</div>
-				</div>
-				<div class="content-container">
-					<div class="content pt-1">
-						<p class="font-weight-bolder text-dark news-title" style="font-family:'Ubuntu'">{{ article.title }}</p>
-						<p class="text-muted news-description" style="font-family:'calibri'">{% if article.description %}{{ article.description }}{% endif %}</p>
-					</div>
-				</div>
-			</a>
-		</div>
-	{% endfor %} -->
 
 	{% for article in articles %}
 		<div class="container mb-3 rounded">
@@ -127,10 +53,10 @@
 			</a>
 		</div>
 	{% endfor %} 
-
 	</section>
-
-
-
-
 {% endblock content %}
+
+{% block script %}
+	<script type="text/javascript" src="{% static 'js/country.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/country-btn.js' %}"></script>
+{% endblock script %}
