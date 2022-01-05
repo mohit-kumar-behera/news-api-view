@@ -1,62 +1,62 @@
-{% extends 'news/base.html' %}
-{% load static %}
+{% extends 'news/base.html' %} {% load static %} {% block title %}
+<title>News - Top HeadLines</title>
+{% endblock title %} {% block content %}
 
-{% block title %}
-	<title>News - Top HeadLines</title>
-{% endblock title %}
+<section id="title mb-5">
+  <h1 class="text-center brand" style="font-family:'Montserrat">
+    DailyNews.com
+  </h1>
+</section>
+<p id="demo"></p>
+<section id="country">
+  <div class="container mt-5 mb-5 d-flex flex-wrap justify-content-start"></div>
+</section>
 
-{% block content %}
+{% if message %}
+<section id="error_message">
+  <h2 class="text-center">{{ message }}</h2>
+</section>
+{% endif %}
 
-	<section id="title mb-5">
-		<h1 class="text-center brand" style="font-family:'Montserrat">DailyNews.com</h1>
-	</section>
-	<p id="demo"></p>
-	<section id="country">
-		<div class="container mt-5 mb-5 d-flex flex-wrap justify-content-start">
-			
-		</div>
-	</section>
-
-	{% if message %}
-		<section id="error_message">
-			<h2 class="text-center">{{ message }}</h2>
-		</section>
-	{% endif %}
-
-	<section id="top-headlines mt-5">
-
-	{% for article in articles %}
-		<div class="container mb-3 rounded">
-			<a href="{{ article.url }}" class="full-content-url">
-				<div class="img-container">
-					<div class='p-2'>
-						<small class="news-name float-right">{% if article.source.name %}{{ article.source.name }}{% else %}Resource{% endif %}</small>
+<section id="top-headlines mt-5">
+  {% for article in articles %}
+  <div class="container mb-3 rounded">
+    <a href="{{ article.url }}" target="_blank" class="full-content-url">
+      <div class="img-container">
+        <div class="p-2">
+          <small class="news-name float-right"
+            >{% if article.source.name %}{{ article.source.name }}{% else %}Resource{% endif %}</small>
+        </div>
+        {% if article.urlToImage %}
+					<img
+						src="{{ article.urlToImage }}"
+						class="text-center news-image img-fluid news-image"
+					/>
+        {% else %}
+					<div class="no-image">
+						<h3 class="text-center text-muted">No Image Available</h3>
 					</div>
-					{% if article.urlToImage %}
-						<img src="{{ article.urlToImage }}" class="text-center news-image img-fluid news-image"/>
-					{% else %}
-						<div class="no-image">
-							<h3 class="text-center text-muted">No Image Available</h3>
-						</div>
-					{% endif %}
-					<div class='d-flex justify-content-between p-2'>
+        {% endif %}
+					<div class="d-flex justify-content-between p-2">
 						<small class="news-author">{% if article.author %}{{ article.author }}{% else %}Anonymous{% endif %}</small>
 						<small class="news-pub-date">{% if article.publishedAt %}{{ article.publishedAt }}{% else %}{Few days ago}{% endif %}</small>
 					</div>
-				</div>
-				<div class="content-container">
-					<div class="content pt-1">
-						<p class="font-weight-bolder text-dark news-title" style="font-family:'Ubuntu'">{{ article.title }}</p>
-						<p class="text-muted news-description" style="font-family:'calibri'">{% if article.description %}{{ article.description }}{% endif %}</p>
-					</div>
-				</div>
-			</a>
-		</div>
-	{% endfor %} 
-	</section>
-{% endblock content %}
-
-{% block script %}
-	<script type="text/javascript" src="{% static 'js/country.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/country-btn.js' %}"></script>
+      </div>
+      <div class="content-container">
+        <div class="content pt-1">
+          <p class="font-weight-bolder text-dark news-title" style="font-family: 'Ubuntu'">
+            {{ article.title }}
+          </p>
+          <p class="text-muted news-description" style="font-family: 'calibri'">
+            {% if article.description %}{{ article.description }}{% endif %}
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+{% endblock content %} {% block script %}
+<script type="text/javascript" src="{% static 'js/country.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/country-btn.js' %}"></script>
 {% endblock script %}
